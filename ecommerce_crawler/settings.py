@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()  # Load environment variables from .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,45 +75,30 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecommerce_crawler.wsgi.application'
 
 
-# Celery Configuration for Railway Redis
-CELERY_BROKER_URL = "redis://default:YwnHbqLyBIPTFJIijruULjeQSGxEMrsB@hopper.proxy.rlwy.net:15836"
-CELERY_RESULT_BACKEND = "redis://default:YwnHbqLyBIPTFJIijruULjeQSGxEMrsB@hopper.proxy.rlwy.net:15836"
 
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-
-
-
-# Redis as Celery Broker
-# CELERY_BROKER_URL = "redis://localhost:6379/0"  # Ensure Redis is running
-# CELERY_ACCEPT_CONTENT = ['json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ecommerce_crawler',
-#         'HOST':'localhost',
-#         'USER':'root',
-#         'PASSWORD':'Gayu@15sept',
-#         'PORT':'3306',
-#     }
-# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'railway',
-        'PASSWORD': 'EOaTcXlpnkqYkZirsiIcLcxqCszUWZhF',
-        'HOST': 'mainline.proxy.rlwy.net',
-        'PORT': '35204',
-        'USER':'root',
-
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'PASSWORD': 'EOaTcXlpnkqYkZirsiIcLcxqCszUWZhF',
+#         'HOST': 'mainline.proxy.rlwy.net',
+#         'PORT': '35204',
+#         'USER':'root',
+#
+#     }
+# }
 
 
 # Password validation
