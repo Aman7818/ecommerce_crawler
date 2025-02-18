@@ -71,7 +71,7 @@ class WebCrawler:
         result = {}
         for domain in self.domains:
             self.selenium_crawl(domain)
-            result[domain] = list(self.product_urls)  # Store URLs under the domain key
+            result[domain] = list(self.product_urls)
         print("Crawling completed.")
         for url in result.get(domain, []):
             try:

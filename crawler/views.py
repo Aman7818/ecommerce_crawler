@@ -43,7 +43,7 @@ class ScrapeView(View):
                 return JsonResponse({"error": "Invalid or missing 'domains' list"}, status=400)
 
             crawler = WebCrawler(domains)
-            scraped_data = crawler.run_crawler()  # Returns product URLs
+            scraped_data = crawler.run_crawler()
 
             return JsonResponse({"message": "Crawling completed", "data": scraped_data}, status=200)
 
