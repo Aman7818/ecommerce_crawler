@@ -12,10 +12,9 @@ from bs4 import BeautifulSoup
 from crawler.models import ProductURL
 
 PLATFORM_PATTERNS = {
-    "amazon.in": re.compile(r"https://www\.amazon\.in/.+/dp/\w+/"),
+
     "flipkart.com": re.compile(r"https://www\.flipkart\.com/.+/p/\w+"),
-    "ajio.com": re.compile(r"https://www\.ajio\.com/.+?pid=\w+"),
-    "myntra.com": re.compile(r"https://www\.myntra\.com/.+/\d+"),
+
 }
 
 
@@ -49,7 +48,7 @@ class WebCrawler:
         pattern = PLATFORM_PATTERNS.get(parsed_domain)
         if pattern:
             return {link for link in links if pattern.match(link)}
-        return links  # Use all links for other domains
+        return links
 
     def selenium_crawl(self, domain):
         print(f"Crawling {domain} with Selenium...")
@@ -76,19 +75,13 @@ class WebCrawler:
         print("Crawling completed.")
         for url in result.get(domain, []):
             try:
-                if len(url) > 2083:  # Skip URLs longer than MySQL's max URL length
+                if len(url) > 2083:
                     print(f"Skipping long URL: {url}")
                     continue
 
                 ProductURL.objects.get_or_create(domain=domain, url=url)
             except Exception as e:
                 print(f"Skipping URL due to error: {url} - Error: {e}")
-        # for url in result.get(domain, []):
-        #     ProductURL.objects.get_or_create(domain=domain, url=url)
+
         return result
 
-    # def run_crawler(self):
-    #     for domain in self.domains:
-    #         self.selenium_crawl(domain)
-    #     print("Crawling completed.")
-    #     return list(self.product_urls)

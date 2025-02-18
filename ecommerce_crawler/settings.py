@@ -88,17 +88,7 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'railway',
-#         'PASSWORD': 'EOaTcXlpnkqYkZirsiIcLcxqCszUWZhF',
-#         'HOST': 'mainline.proxy.rlwy.net',
-#         'PORT': '35204',
-#         'USER':'root',
-#
-#     }
-# }
+
 
 
 # Password validation
